@@ -5,15 +5,20 @@ public class EmpWageAttendance
 	public static void main(String[] args)
 	{
 		Random rand = new Random();
-		int IS_FULL_TIME=1;
-		int IS_PART_TIME=2;
-		int EMP_RATE_PER_HRS=20;
-		int NUM_WORK_DAYS=20;
+		int IS_FULL_TIME = 1;
+		int IS_PART_TIME = 2; 
+		int EMP_RATE_PER_HRS = 20;
+		int MAX_HRS_MONTH = 100;
+		int NUM_WORK_DAYS = 20;
+		
+		int totalWorkingDays = 0;
+		int totalEmpHrs = 0;
+		int EMP_HRS=0;
 		int totalSalary=0;
-		int salary=0;
-		int EMP_HRS = 0;
-		for(int day =1;day<=NUM_WORK_DAYS;day++)
-		{	
+		
+		while(totalEmpHrs < MAX_HRS_MONTH && totalWorkingDays < NUM_WORK_DAYS)
+		{
+			totalWorkingDays++;
 			int empCheck=rand.nextInt(3);
 			switch (empCheck) {
 			case 1:
@@ -25,9 +30,9 @@ public class EmpWageAttendance
 			default:
 				EMP_HRS=0;	
 			}
-			salary=(EMP_RATE_PER_HRS*EMP_HRS);	
-			totalSalary=(totalSalary+salary);
-		}
+			totalEmpHrs=totalEmpHrs+EMP_HRS;
+		}	
+		totalSalary=totalEmpHrs*EMP_RATE_PER_HRS;
 		System.out.println(totalSalary);
 	}
 }
