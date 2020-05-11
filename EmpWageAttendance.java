@@ -4,7 +4,7 @@ public class EmpWageAttendance
 {
         public static void main(String[] args)
         {
-        	    Random rand = new Random();
+                    Random rand = new Random();
                 int IS_PART_TIME=1;
                 int IS_FULL_TIME=2;
                 int EMP_RATE_PER_HRS=20;
@@ -27,4 +27,7 @@ public class EmpWageAttendance
         System.out.println(salary);
         }
 }
+
+
+
 
