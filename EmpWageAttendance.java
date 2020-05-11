@@ -5,8 +5,8 @@ public class EmpWageAttendance
 	public static void main(String[] args)
 	{
 		Random rand = new Random();
-		int IS_FULL_TIME = 1;
-		int IS_PART_TIME = 2; 
+		final int IS_FULL_TIME = 1;
+		final int IS_PART_TIME = 2; 
 		int EMP_RATE_PER_HRS = 20;
 		int MAX_HRS_MONTH = 100;
 		int NUM_WORK_DAYS = 20;
@@ -21,10 +21,10 @@ public class EmpWageAttendance
 			totalWorkingDays++;
 			int empCheck=rand.nextInt(3);
 			switch (empCheck) {
-			case 1:
+			case IS_FULL_TIME:
 				EMP_HRS=8;
 				break;
-			case 2:
+			case IS_PART_TIME:
 				EMP_HRS=4;
 				break;
 			default:
