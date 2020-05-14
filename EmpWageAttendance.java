@@ -29,15 +29,18 @@ class CompanyEmpWage{
 		return "Total Emp Wage for company: " +company+ " is: " + totalEmpWage;
 	}
 }
+
 public class EmpWageAttendance implements IComputeEmpWage {
 	public static final int IS_FULL_TIME=1;
 	public static final int IS_PART_TIME=2;
 	
 	private int numOfCompany=0;
 	private ArrayList<CompanyEmpWage> companyEmpWageArrayList;
+	private ArrayList<Integer> dailyWageList;
 	
 	public EmpWageAttendance() {
 		companyEmpWageArrayList = new ArrayList<>();
+		dailyWageList = new ArrayList<>();
 	}
 	
 	public void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
@@ -51,6 +54,12 @@ public class EmpWageAttendance implements IComputeEmpWage {
 			companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
 			System.out.println(companyEmpWage);
 		}
+	}
+
+	public void computeDailyWage() {
+              for (int j = 0; j < dailyWageList.size();j++) { 		      
+	          System.out.println(dailyWageList.get(j)); 		
+	      } 
 	}
 	
 	private int computeEmpWage(CompanyEmpWage companyEmpWage) {
@@ -70,6 +79,8 @@ public class EmpWageAttendance implements IComputeEmpWage {
 			default:
 				empHrs=0;	
 			}
+			int dailyWage=empHrs*companyEmpWage.empRatePerHour;
+			dailyWageList.add(dailyWage);
 			totalEmpHrs += empHrs;
 			System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " +empHrs);
 		}
@@ -82,6 +93,7 @@ public class EmpWageAttendance implements IComputeEmpWage {
 		empWage.addCompanyEmpWage("DMart",20,2,10);
 		empWage.addCompanyEmpWage("Reliance",10,4,20);
 		empWage.computeEmpWage();
+		empWage.computeDailyWage();
 	}
 
 }
