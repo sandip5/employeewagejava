@@ -1,11 +1,22 @@
 import java.util.Random;
 
-public class EmpWageAttendance 
-{
+public class EmpWageAttendance {
 	public static final int IS_FULL_TIME=1;
 	public static final int IS_PART_TIME=2;
 	
-	public static int computeEmpWage(String company, int empRatePerHour,int numOfWorkingDays, int maxHoursPerMonth) {
+	private final String company;
+	private final int empRatePerHour;
+	private final int numOfWorkingDays;
+	private final int maxHoursPerMonth;
+	
+	public EmpWageAttendance(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+		this.company=company;
+		this.empRatePerHour=empRatePerHour;
+		this.numOfWorkingDays=numOfWorkingDays;
+		this.maxHoursPerMonth=maxHoursPerMonth;
+	}
+
+	private int computeEmpWage() {
 		int empHrs=0, totalEmpHrs=0, totalWorkingDays=0;
 		Random rand = new Random();
 		while(totalEmpHrs <= maxHoursPerMonth && totalWorkingDays < numOfWorkingDays)
@@ -26,15 +37,14 @@ public class EmpWageAttendance
 			System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " +empHrs);
 		}
 		int totalEmpWage = totalEmpHrs * empRatePerHour;
-		System.out.println("Total Emp Wage:" + totalEmpWage);
 		return totalEmpWage;
 	}
 	
-	public static void main(String[] args) 
-	{
-		computeEmpWage("Presensesoft",30,8,40);
-		computeEmpWage("BridgeLabz",40,10,30);
-
+	public static void main(String[] args) {
+		EmpWageAttendance DMart = new EmpWageAttendance("DMart",10,8,10);
+		EmpWageAttendance Reliance = new EmpWageAttendance("Reliance",20,6,30);
+		System.out.println("Total Emp Wage for Company " + DMart.company + " is:" + DMart.computeEmpWage());
+		System.out.println("Total Emp Wage for Company " + Reliance.company + " is:" + Reliance.computeEmpWage());
 	}
 
 }
