@@ -8,6 +8,7 @@ public class EmpWageAttendance {
 	private final int empRatePerHour;
 	private final int numOfWorkingDays;
 	private final int maxHoursPerMonth;
+	private int totalEmpWage;
 	
 	public EmpWageAttendance(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
 		this.company=company;
@@ -15,8 +16,7 @@ public class EmpWageAttendance {
 		this.numOfWorkingDays=numOfWorkingDays;
 		this.maxHoursPerMonth=maxHoursPerMonth;
 	}
-
-	private int computeEmpWage() {
+	private void computeEmpWage() {
 		int empHrs=0, totalEmpHrs=0, totalWorkingDays=0;
 		Random rand = new Random();
 		while(totalEmpHrs <= maxHoursPerMonth && totalWorkingDays < numOfWorkingDays)
@@ -36,15 +36,21 @@ public class EmpWageAttendance {
 			totalEmpHrs += empHrs;
 			System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " +empHrs);
 		}
-		int totalEmpWage = totalEmpHrs * empRatePerHour;
-		return totalEmpWage;
+		totalEmpWage = totalEmpHrs * empRatePerHour;
 	}
 	
+	@Override
+	public String toString() {
+		return "Total Emp Wage for company: " +company+ " is: " + totalEmpWage;
+	}
+
 	public static void main(String[] args) {
 		EmpWageAttendance DMart = new EmpWageAttendance("DMart",10,8,10);
 		EmpWageAttendance Reliance = new EmpWageAttendance("Reliance",20,6,30);
-		System.out.println("Total Emp Wage for Company " + DMart.company + " is:" + DMart.computeEmpWage());
-		System.out.println("Total Emp Wage for Company " + Reliance.company + " is:" + Reliance.computeEmpWage());
+		DMart.computeEmpWage();
+		System.out.println(DMart);
+		Reliance.computeEmpWage();
+		System.out.println(Reliance);
 	}
 
 }
