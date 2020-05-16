@@ -1,10 +1,14 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 interface IComputeEmpWage{
 	public void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth);
-	public void computeEmpWage();		
+	public void computeEmpWage();
+	public int getTotalWage(String company);
 }
+
 class CompanyEmpWage{
 	
 	public final String company;
@@ -18,6 +22,7 @@ class CompanyEmpWage{
 		this.empRatePerHour=empRatePerHour;
 		this.numOfWorkingDays=numOfWorkingDays;
 		this.maxHoursPerMonth=maxHoursPerMonth;
+		totalEmpWage =0;
 	}
 	
 	public void setTotalEmpWage(int totalEmpWage) {
@@ -36,16 +41,17 @@ public class EmpWageAttendance implements IComputeEmpWage {
 	
 	private int numOfCompany=0;
 	private ArrayList<CompanyEmpWage> companyEmpWageArrayList;
-	private ArrayList<Integer> dailyWageList;
+	private Map<String,CompanyEmpWage> companyToEmpWageMap;
 	
 	public EmpWageAttendance() {
 		companyEmpWageArrayList = new ArrayList<>();
-		dailyWageList = new ArrayList<>();
+		companyToEmpWageMap = new HashMap<>();
 	}
 	
 	public void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
 		CompanyEmpWage companyEmpWage=new CompanyEmpWage(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
 		companyEmpWageArrayList.add(companyEmpWage);
+		companyToEmpWageMap.put(company, companyEmpWage);
 	}
 	
 	public void computeEmpWage() {
@@ -55,11 +61,10 @@ public class EmpWageAttendance implements IComputeEmpWage {
 			System.out.println(companyEmpWage);
 		}
 	}
-
-	public void computeDailyWage() {
-              for (int j = 0; j < dailyWageList.size();j++) { 		      
-	          System.out.println(dailyWageList.get(j)); 		
-	      } 
+	
+	@Override
+	public int getTotalWage(String company) {
+		return companyToEmpWageMap.get(company).totalEmpWage;
 	}
 	
 	private int computeEmpWage(CompanyEmpWage companyEmpWage) {
@@ -79,8 +84,6 @@ public class EmpWageAttendance implements IComputeEmpWage {
 			default:
 				empHrs=0;	
 			}
-			int dailyWage=empHrs*companyEmpWage.empRatePerHour;
-			dailyWageList.add(dailyWage);
 			totalEmpHrs += empHrs;
 			System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " +empHrs);
 		}
@@ -93,8 +96,6 @@ public class EmpWageAttendance implements IComputeEmpWage {
 		empWage.addCompanyEmpWage("DMart",20,2,10);
 		empWage.addCompanyEmpWage("Reliance",10,4,20);
 		empWage.computeEmpWage();
-		empWage.computeDailyWage();
+		System.out.println("Total wage for DMart company: " +empWage.getTotalWage("Reliance"));
 	}
-
-}
-
+}	
